@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-vis.py
-
+[Python 2.7 (Mayavi is not yet compatible with Python 3+)]
 Created on Tue Feb 10 18:27:17 2015
-@author: Ryan
+@author: Ryan Stauffer
+https://github.com/ryanpstauffer/market-vis
 
-Visualization and Interactive module for Market Visualization Software 
+Market Visualization Prototype 
+Visualization and Interactive module
 """
 
 import numpy as np

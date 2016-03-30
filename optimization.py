@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-optimization.py
+[Python 2.7 (Mayavi is not yet compatible with Python 3+)]
 Created on Tue Feb 10 18:16:51 2015
 @author: Ryan Stauffer
+https://github.com/ryanpstauffer/market-vis
 
-Optimization and algo module for Market Visualization Software
+Market Visualization Prototype
+Optimization and Algo module 
 """
 
 import numpy as np

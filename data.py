@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-data.py
-
+[Python 2.7 (Mayavi is not yet compatible with Python 3+)]
 Created on Tue Feb 10 18:18:16 2015
 @author: Ryan Stauffer
+https://github.com/ryanpstauffer/market-vis
 
-Data handling module for Market Visualization Software
+Market Visualization Prototype
+Data handling module
 """
 import numpy as np
 import pandas as pd
@@ -13,6 +14,10 @@ from mayavi import mlab
 import datetime
 import pandas.io.sql as psql
 import MySQLdb as mdb
+
+
+#Next step is to replace MySQL with Google Finance API data pull to allow other users
+#to work the protype
 
 
 def connect_MySQL(): 

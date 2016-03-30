@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+[Python 2.7 (Mayavi is not yet compatible with Python 3+)]
 Created on Mon Feb 09 18:11:08 2015
-
 @author: Ryan Stauffer
-MktVis test code v.001
+https://github.com/ryanpstauffer/market-vis
+
+Market-vis test code v.001
+Market Visualization Prototype
 This will eventually be divided into modules (with this main module being the glue)
 """
 
@@ -12,9 +15,9 @@ from mayavi import mlab
 import datetime
 import pandas as pd
 
-from optimization import *
-from data import *
-from vis import *
+#from optimization import *
+from data import connect_MySQL, get_returns, new_total_returns
+from viz import picker_callback
 
 #dphi, dtheta = np.pi/250.0, np.pi/250.0
 #[phi,theta] = np.mgrid[0:np.pi+dphi*1.5:dphi,0:2*np.pi+dtheta*1.5:dtheta]

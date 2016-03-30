@@ -1,3 +1,6 @@
+#[Python 2.7 (Mayavi is not yet compatible with Python 3+)]
+#Works as of March 30, 2016
+
 import numpy as np
 from mayavi import mlab
 
