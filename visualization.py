@@ -11,8 +11,6 @@ Visualization and Interactive module
 
 import numpy as np
 from mayavi import mlab
-import datetime
-
 
 def visualizePrices(prices):
     '''Creates a mayavi visualization of a pd DataFrame containing stock prices
@@ -39,6 +37,8 @@ def visualizePrices(prices):
     mlab.orientation_axes(vis)
     #mlab.title('S&P 500 Market Data Visualization', size = .25)
     mlab.axes(vis, nb_labels=0, xlabel = 'Time', ylabel = 'Company', zlabel = 'Price')
+    
+    #Functionality to be added:
     #    cursor3d = mlab.points3d(0., 0., 0., mode='axes',
     #                                color=(0, 0, 0),
     #                                scale_factor=20)
@@ -48,6 +48,7 @@ def visualizePrices(prices):
 
 
 def pickerCallback(pickerObj):
+    #Currently unused, functionality to be added
     picked = pickerObj.actors
     if vis.actor.actor._vtk_obj in [o._vtk_obj for o in picked]:
         # m.mlab_source.points is the points array underlying the vtk
