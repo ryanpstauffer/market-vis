@@ -95,6 +95,7 @@ def getLastPrice(ticker):
     return price
     
 def buildDailyPriceData(tickerList, startDate, endDate):
+    print('Pulling Market Data for S&P 500 from {0} to {1}'.format(startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
     #Build SP500 daily price data (for saving)
     firstTicker = getDailyData(tickerList[0],startDate, endDate)
     firstTicker.rename(columns={'Close' : tickerList[0]}, inplace = True)

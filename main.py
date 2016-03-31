@@ -7,51 +7,29 @@ https://github.com/ryanpstauffer/market-vis
 
 Market-vis test code v0.01
 Market Visualization Prototype
-This will eventually be divided into modules (with this main module being the glue)
+Main script
 """
 
-import numpy as np
-from mayavi import mlab
 from datetime import datetime
 import pandas as pd
 
 from quotes import buildDailyPriceData, buildDummyData, createIndexedPricing
+from visualization import visualizePrices
 #from optimization import *
 
-from visualization import visualizePrices
-
-#Assemble Test Data for temp use
-t0 = datetime.now()
+t0 = datetime.now() #Time the process
     
 #Select Dates  
 startDate = datetime.strptime('20120101', '%Y%m%d')
 endDate = datetime.strptime('20130101', '%Y%m%d')
 
 #Get data for S&P500 Constituents
-print('Pulling Market Data for S&P 500 from {0} to {1}'.format(startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
 SP500Constituents = pd.read_csv('SP500_constituents.csv')
 
-#df = buildDailyPriceData(SP500Constituents['Symbol'])
+#Use THIS line for online stock price building (do not use line 33)
+#stockPrices = buildDailyPriceData(SP500Constituents['Symbol'], startDate, endDate)
 
-
-###Load dataset from .csv
-#print("Pulling Market Data from .csv")
-#df = pd.read_csv('SP500_daily_price_data.csv')
-#
-## Convert strings to Datetime format
-#df[df.columns[0]] = df[df.columns[0]].apply(lambda x: datetime.strptime(x, '%Y-%m-%d'))
-#df.index = df[df.columns[0]]
-#df.drop(df.columns[0], axis=1, inplace=True)
-#
-##Build Price Table
-#stockPrices = df.loc[startDate:endDate]
-##FIX THIS
-##SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame
-#stockPrices.dropna(axis=1, how='any', inplace=True)
-#
-#stockList = list(set(stockPrices.columns))
-#print('Pulled data for {0} stocks from {1} to {2}'.format(len(stockList), startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
-
+#Use THIS line for offline testing (built from .csv file) (do not use line 30)
 stockPrices = buildDummyData()
 
 indexedPrices = createIndexedPricing(stockPrices, 100)
