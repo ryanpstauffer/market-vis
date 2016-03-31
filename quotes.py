@@ -5,8 +5,9 @@ Created on Wed Dec 16 22:44:15 2015
 @author: Ryan Stauffer
 https://github.com/ryanpstauffer/market-vis
 
-This module based initially on http://www.theodor.io/scraping-google-finance-data-using-pandas/
+[This module referenced http://www.theodor.io/scraping-google-finance-data-using-pandas/]
 Market Visualization Prototype
+Quotes Module
 """
 
 #Clean up dependencies!!!!
@@ -32,14 +33,14 @@ symbol = 'AAPL'
 #aapl_from_google = web.DataReader("%s" % symbol, 'google', start, end)
 
 
-def get_intraday_data(symbol, interval_seconds=61, num_days=10):
+def getIntradayData(symbol, interval_seconds=61, num_days=10):
     # Specify URL string based on function inputs.
-    url_string = 'http://www.google.com/finance/getprices?q={0}'.format(symbol.upper())
-    url_string += "&i={0}&p={1}d&f=d,c".format(interval_seconds,num_days)
+    urlString = 'http://www.google.com/finance/getprices?q={0}'.format(symbol.upper())
+    urlString += "&i={0}&p={1}d&f=d,c".format(interval_seconds,num_days)
 #    url_string += "&i={0}&p={1}d&f=d,o,h,l,c,v".format(interval_seconds,num_days)
     
     # Request the text, and split by each line
-    r = urllib2.urlopen(urllib2.Request(url_string)).read()
+    r = urllib2.urlopen(urllib2.Request(urlString)).read()
     r = r.splitlines()
 #    print(r)
 
@@ -55,13 +56,14 @@ def get_intraday_data(symbol, interval_seconds=61, num_days=10):
 
     return df[symbol]
 
-def get_daily_data(symbol, start_date, end_date=date.today().isoformat()):
+def getDailyData(symbol, startDate, endDate=date.today().isoformat()):
     ''' Daily quotes from Google. Date format='yyyy-mm-dd' '''
     symbol = symbol.upper()
-    start = date(int(start_date[0:4]),int(start_date[5:7]),int(start_date[8:10]))
-    end = date(int(end_date[0:4]),int(end_date[5:7]),int(end_date[8:10]))
-    url_string = "http://www.google.com/finance/historical?q={0}".format(symbol)
-    url_string += "&startdate={0}&enddate={1}&output=csv".format(
+    #Make this more pythonic
+    start = date(int(startDate[0:4]),int(startDate[5:7]),int(startDate[8:10]))
+    end = date(int(endDate[0:4]),int(endDate[5:7]),int(endDate[8:10]))
+    urlString = "http://www.google.com/finance/historical?q={0}".format(symbol)
+    urlString += "&startdate={0}&enddate={1}&output=csv".format(
                       start.strftime('%b %d, %Y'),end.strftime('%b %d, %Y'))
 
     #Convert URL output ot dataframe
@@ -76,16 +78,16 @@ def get_daily_data(symbol, start_date, end_date=date.today().isoformat()):
     return df
 
 
-def get_last_price(symbol):
+def getLastPrice(symbol):
     
     #NEED TO MAKE THIS RETURN TIME, BUT WORKS JANKILY FOR NOW...
     #Returns last price and date time of a given symbol (from Google Finance API)
     # Specify URL string based on function inputs.
-    url_string = 'http://www.google.com/finance/info?client=ig&q={0}'.format(symbol.upper())
+    urlString = 'http://www.google.com/finance/info?client=ig&q={0}'.format(symbol.upper())
 #    url_string += "&i={0}&p={1}d&f=d,c".format(interval_seconds,num_days)
     
     # Request the text, and split by each line
-    r = urllib2.urlopen(urllib2.Request(url_string)).read()
+    r = urllib2.urlopen(urllib2.Request(urlString)).read()
     obj = json.loads(r[3:])
     print(obj)
 
@@ -99,15 +101,31 @@ def get_last_price(symbol):
     
     return price
     
+def buildDailyPriceData(tickers):
+    #Build SP500 daily price data (for saving)
+    firstTicker = get_daily_data(tickers[0],'2010-01-01')
+    firstTicker.rename(columns={'Close' : tickers[0]}, inplace = True)
+    dailyPriceData = first_ticker[tickers[0]]
+#    test2 = get_daily_data('GOOGL','2016-02-20')
+#    new = pd.concat([test['AAPL'],test2['Close']], axis=1, join='outer')
+    for ticker in tickers[1:]:
+        print(ticker)
+        newTicker = getDailyData(ticker,'2010-01-01')
+        if not newTicker.empty:
+            newTicker.rename(columns={'Close' : ticker}, inplace = True)
+            dailyPriceData = pd.concat([dailyPriceData, newTicker[ticker]], axis=1, join='outer')
+    print(dailyPriceData)
+    return dailyPriceData
+    
 if __name__ == '__main__':        
-#    test = get_intraday_data('AAPL',61,1)
-#    test2 = get_intraday_data('GOOGL',61,1)
+#    test = getIntradayData('AAPL',61,1)
+#    test2 = getIntradayData('GOOGL',61,1)
 #    new = pd.concat([test,test2], axis=1, join='outer')
     
-    test = get_daily_data('AAPL','2016-02-20')
+    test = getDailyData('AAPL','2016-02-20')
     test.rename(columns={'Close' : 'AAPL'}, inplace = True)
-    test2 = get_daily_data('GOOGL','2016-02-20')
+    test2 = getDailyData('GOOGL','2016-02-20')
     new = pd.concat([test['AAPL'],test2['Close']], axis=1, join='outer')
-#    last = get_last_price('AAPL')
+#    last = getLastPrice('AAPL')
 
 

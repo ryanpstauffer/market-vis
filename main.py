@@ -12,23 +12,13 @@ This will eventually be divided into modules (with this main module being the gl
 
 import numpy as np
 from mayavi import mlab
-from datetime import datetime, date
+from datetime import datetime
 import pandas as pd
 
+from quotes import buildDailyPriceData
 #from optimization import *
 
 #from viz import picker_callback
-
-#dphi, dtheta = np.pi/250.0, np.pi/250.0
-#[phi,theta] = np.mgrid[0:np.pi+dphi*1.5:dphi,0:2*np.pi+dtheta*1.5:dtheta]
-#m0 = 4; m1 = 3; m2 = 2; m3 = 3; m4 = 6; m5 = 2; m6 = 6; m7 = 4;
-#r = np.sin(m0*phi)**m1 + np.cos(m2*phi)**m3 + np.sin(m4*theta)**m5 + np.cos(m6*theta)**m7
-#x = r*np.sin(phi)*np.cos(theta)
-#y = r*np.cos(phi)
-#z = r*np.sin(phi)*np.sin(theta)
-#
-#s = mlab.mesh(x, y, z)
-#mlab.show()
 
 #Assemble Test Data for temp use
 timer = datetime.now()
@@ -37,9 +27,17 @@ timer = datetime.now()
 startDate = datetime.strptime('20120101', '%Y%m%d')
 endDate = datetime.strptime('20130101', '%Y%m%d')
 
-#Load dataset from .csv
-print("Pulling Market Data from .csv")
-df = pd.read_csv('SP500_daily_price_data.csv')
+#Get data for S&P500 Constituents
+print('Pulling Market Data for S&P 500 from {0} to {1}'.format(startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
+SP500Constituents = pd.read_csv('SP500_constituents.csv')
+print(SP500Constituents)
+
+#df = buildDailyPriceData(SP500Constituents['Symbol'])
+
+
+##Load dataset from .csv
+#print("Pulling Market Data from .csv")
+#df = pd.read_csv('SP500_daily_price_data.csv')
 
 # Convert strings to Datetime format
 df[df.columns[0]] = df[df.columns[0]].apply(lambda x: datetime.strptime(x, '%Y-%m-%d'))
@@ -51,53 +49,25 @@ stockPrices = df.loc[startDate:endDate]
 #FIX THIS
 #SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame
 stockPrices.dropna(axis=1, how='any', inplace=True)
-print(stockPrices.head())
+#print(stockPrices.head())
 
 stockList = list(set(stockPrices.columns))
-print('Pulled data for {0} stocks from {1} to {2}'.format(len(stockList), startDate, endDate))
+print('Pulled data for {0} stocks from {1} to {2}'.format(len(stockList), startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
 
 #Build Returns Table
 stockReturns = stockPrices.pct_change(1)
-print(stockReturns.head())
+#print(stockReturns.head())
 
 
 #Build Indexed Price Table
 indexedReturns = stockReturns + 1
 indexedReturns.iloc[0] = np.repeat(1, len(stockReturns.columns))
 indexedReturns = indexedReturns.cumprod(axis=0)
-print(indexedReturns.head())
-
-
+#print(indexedReturns.head())
 
 
 dates = list(set(stockReturns.index))
 dates.sort()
-
-#x = np.array([list(xrange(len(dates)+1)),]*len(stock_list)).transpose()
-#y = np.array([stocks,]*(len(dates)+1))
-
-#ret_matrix = pd.DataFrame()
-##ret_matrix = np.zeros(((len(dates)+1),len(stock_list)))
-#for s in xrange(len(stock_list)):
-#    print(s)
-#    ticker = (stock_list[s])
-#    print(ticker)
-#    rets = get_specific_returns(ticker, startdate, enddate, con)
-#    rets.rename(columns={'return':ticker}, inplace=True)
-#    print rets.index
-#    ret_matrix = pd.concat((ret_matrix, rets), axis=1)
-##    print(rets)
-#print(ret_matrix)
-#
-#x_length, y_length = ret_matrix.shape
-#x = np.array([list(xrange(x_length)),]*y_length).transpose()
-#y = np.array([ret_matrix.columns,]*y_length)
-#z = ret_matrix
-
-#x, y, z = total_returns_chart(stock_rets)
-
-#Begin Good code here?
-#x, y, z = new_total_returns(stockList, startDate, endDate, con)
 
 ret_matrix = stockReturns
 x_length, y_length = ret_matrix.shape
@@ -119,12 +89,13 @@ print(z.tail())
 
 #Real code
 dims = x.shape
-fig = mlab.figure(1)
+fig = mlab.figure(bgcolor=(.4,.4,.4))
 vis = mlab.surf(x, y, z, warp_scale='auto')
 mlab.outline(vis)
 mlab.orientation_axes(vis)
-mlab.title('S&P 500 Market Data Visualization', size = .25)
-mlab.axes(vis, xlabel = 'Time', ylabel = 'Company', zlabel = 'Value (Starting from 100)')
+#mlab.title('S&P 500 Market Data Visualization', size = .25)
+
+mlab.axes(vis, nb_labels=0, xlabel = 'Time', ylabel = 'Company', zlabel = 'Price')
 #    cursor3d = mlab.points3d(0., 0., 0., mode='axes',
 #                                color=(0, 0, 0),
 #                                scale_factor=20)

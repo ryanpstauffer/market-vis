@@ -130,7 +130,7 @@ if __name__ == '__main__':
     #Create 1-D array of returns (Index is ret labels)
     ret = np.array(stock_rets['return'])
     
-    #Setermine distance between all points in unordered list
+    #Determine distance between all points in unordered list
     order = list(xrange(len(ret)))
     order = [x / x_scale_factor for x in order]
     ret_2D = np.array((ret,order)).T  
