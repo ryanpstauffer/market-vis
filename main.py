@@ -20,21 +20,24 @@ from visualization import visualizePrices
 t0 = datetime.now() #Time the process
     
 #Select Dates  
-startDate = datetime.strptime('20120101', '%Y%m%d')
-endDate = datetime.strptime('20130101', '%Y%m%d')
+startDate = datetime.strptime('20150101', '%Y%m%d')
+endDate = datetime.strptime('20160101', '%Y%m%d')
 
 #Get data for S&P500 Constituents
 SP500Constituents = pd.read_csv('SP500_constituents.csv')
 
+#testConstituents = ['AAPL', 'GE', 'GS', 'F']
+
 #Use THIS line for online stock price building (do not use line 33)
-#stockPrices = buildDailyPriceData(SP500Constituents['Symbol'], startDate, endDate)
+#testStockPrices = buildDailyPriceData(testConstituents, startDate, endDate)
+SP500StockPrices = buildDailyPriceData(SP500Constituents['Symbol'], startDate, endDate)
 
 #Use THIS line for offline testing (built from .csv file) (do not use line 30)
-stockPrices = buildDummyData()
+#stockPrices = buildDummyData()
 
-indexedPrices = createIndexedPricing(stockPrices, 100)
+SP500IndexedPrices = createIndexedPricing(stockPrices, 100)
 
-visualizePrices(indexedPrices)
+visualizePrices(SP500IndexedPrices)
 
 print('Total time: ', (datetime.now() - t0))
 print('End')
