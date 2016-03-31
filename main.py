@@ -16,7 +16,7 @@ from datetime import datetime, date
 import pandas as pd
 
 #from optimization import *
-#from data import connect_MySQL, get_returns, new_total_returns
+
 #from viz import picker_callback
 
 #dphi, dtheta = np.pi/250.0, np.pi/250.0
