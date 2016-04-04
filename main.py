@@ -26,8 +26,6 @@ endDate = datetime.strptime('20160101', '%Y%m%d')
 #Get data for S&P500 Constituents
 SP500Constituents = pd.read_csv('SP500_constituents.csv')
 
-#testConstituents = ['AAPL', 'GE', 'GS', 'F']
-
 #Use THIS line for online stock price building (do not use line 33)
 #SP500StockPrices = buildDailyPriceData(SP500Constituents['Symbol'], startDate, endDate)
 
