@@ -1,6 +1,6 @@
 {
   "name": "Market-vis",
   "tagline": "Market Visualization Prototype",
-  "body": "Text here",
+  "body": "Market Visualization Prototype\r\n\r\n![Prototype Animation](https://cloud.githubusercontent.com/assets/10627606/14259824/5a0737d0-fa6e-11e5-93db-087df92f4ca4.gif)\r\n\r\nThe goal of this project is to explore and develop an interactive, three-dimensional presentation of financial market data.\r\n\r\nRead my white paper [here](https://github.com/ryanpstauffer/market-vis/files/203158/White.Paper.-.Financial.Market.Data.Visualization.pdf).\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
