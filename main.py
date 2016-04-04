@@ -14,7 +14,7 @@ from datetime import datetime
 import pandas as pd
 
 from quotes import buildDailyPriceData, buildDummyData, createIndexedPricing
-from visualization import visualizePrices
+from visualization import visualizePrices, animateGIF
 #from optimization import *
 
 t0 = datetime.now() #Time the process
@@ -34,7 +34,9 @@ SP500StockPrices = buildDummyData()
 
 SP500IndexedPrices = createIndexedPricing(SP500StockPrices, 100)
 
-visualizePrices(SP500IndexedPrices)
+#visualizePrices(SP500IndexedPrices)
+
+animateGIF('images/prototype_animation.gif', SP500IndexedPrices)
 
 print('Total time: ', (datetime.now() - t0))
 print('End')
