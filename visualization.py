@@ -32,7 +32,7 @@ def visualizePrices(prices):
     #Create mayavi2 object
     dims = xTime.shape
     fig = mlab.figure(bgcolor=(.4,.4,.4))
-    vis = mlab.surf(xTime, yCompanies, zPrices, warp_scale='auto')
+    vis = mlab.surf(xTime, yCompanies, zPrices)
     mlab.outline(vis)
     mlab.orientation_axes(vis)
     #mlab.title('S&P 500 Market Data Visualization', size = .25)

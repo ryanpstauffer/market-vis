@@ -29,10 +29,10 @@ SP500Constituents = pd.read_csv('SP500_constituents.csv')
 #testConstituents = ['AAPL', 'GE', 'GS', 'F']
 
 #Use THIS line for online stock price building (do not use line 33)
-SP500StockPrices = buildDailyPriceData(SP500Constituents['Symbol'], startDate, endDate)
+#SP500StockPrices = buildDailyPriceData(SP500Constituents['Symbol'], startDate, endDate)
 
 #Use THIS line for offline testing (built from .csv file) (do not use line 30)
-#SP500StockPrices = buildDummyData()
+SP500StockPrices = buildDummyData()
 
 SP500IndexedPrices = createIndexedPricing(SP500StockPrices, 100)
 
