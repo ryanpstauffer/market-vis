@@ -80,13 +80,13 @@ def buildDailyPriceData(tickerList, startDate, endDate):
     print('Pulling Market Data for S&P 500 from {0} to {1}'.format(startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
     #Build SP500 daily price data (for saving)
     firstTicker = tickerList[0]
-    print(firstTicker),
+    print(firstTicker)
     firstTickerData = getDailyData(firstTicker, startDate, endDate)
     firstTickerData.rename(columns={'Close' : firstTicker}, inplace = True)
     df = firstTickerData[firstTicker]
 
     for ticker in tickerList[1:]:
-        print(ticker),
+        print(ticker)
         newTicker = getDailyData(ticker, startDate, endDate)
         if not newTicker.empty:
             newTicker.rename(columns={'Close' : ticker}, inplace = True)
