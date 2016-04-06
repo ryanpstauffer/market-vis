@@ -10,7 +10,6 @@ Optimization and Algo module
 """
 
 import numpy as np
-from mayavi import mlab
 import random
 import scipy.spatial.distance as scidist
 from scipy.interpolate import UnivariateSpline
@@ -119,11 +118,6 @@ if __name__ == '__main__':
 
     print('Assembling Market Data')
     date = datetime.datetime.strptime('20100115', '%Y%m%d')
-
-    #Pull Data from SQL database
-    print("Pulling Market Data from MySQL")
-    stock_rets = get_returns(date)
-    stock_list = list(set(stock_rets.index))
     
     x_scale_factor = 1000.0
     

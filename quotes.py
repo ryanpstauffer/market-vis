@@ -23,7 +23,6 @@ def getIntradayData(ticker, interval_seconds=61, num_days=10):
     # Specify URL string based on function inputs.
     urlString = 'http://www.google.com/finance/getprices?q={0}'.format(ticker.upper())
     urlString += "&i={0}&p={1}d&f=d,c".format(interval_seconds,num_days)
-#    url_string += "&i={0}&p={1}d&f=d,o,h,l,c,v".format(interval_seconds,num_days)
     
     # Request the text, and split by each line
     r = urllib2.urlopen(urllib2.Request(urlString)).read()
@@ -92,7 +91,9 @@ def buildDailyPriceData(tickerList, startDate, endDate):
             newTicker.rename(columns={'Close' : ticker}, inplace = True)
             df = pd.concat([df, newTicker[ticker]], axis=1, join='outer')
     
+    #Google returns data w/ most recent at the top, this puts data in chrono order
     stockPrices = df.sort_index()
+    
     print('Pulled data for {0} stocks from {1} to {2}'.format(len(stockPrices.columns), startDate.strftime('%Y%m%d'), endDate.strftime('%Y%m%d')))
 
     return stockPrices
@@ -140,11 +141,8 @@ def createIndexedPricing(stockPrices, startingIndexValue):
 
   
 if __name__ == '__main__':        
-#    test = getIntradayData('AAPL',61,1)
-#    test2 = getIntradayData('GOOGL',61,1)
-#    new = pd.concat([test,test2], axis=1, join='outer')
     
-    startDate = datetime.strptime('20150101', '%Y%m%d')    
+    startDate = datetime.strptime('20160101', '%Y%m%d')    
     
     test = getDailyData('AAPL', startDate)
 #    test.rename(columns={'Close' : 'AAPL'}, inplace = True)
