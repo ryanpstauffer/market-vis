@@ -136,17 +136,3 @@ def createIndexedPricing(stockPrices, startingIndexValue):
     indexedPrices = indexedPrices.cumprod(axis=0)
     
     return indexedPrices
-
-  
-if __name__ == '__main__':        
-    #For module testing purposes only
-    startDate = datetime.strptime('20160101', '%Y%m%d')    
-    
-    test = getDailyData('AAPL', startDate)
-    print(test)
-#    test.rename(columns={'Close' : 'AAPL'}, inplace = True)
-#    test2 = getDailyData('GOOGL','2016-02-20')
-#    new = pd.concat([test['AAPL'],test2['Close']], axis=1, join='outer')
-##    last = getLastPrice('AAPL')
-
-

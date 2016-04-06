@@ -54,8 +54,7 @@ def animateGIF(filename, prices):
      #Imports mlab here to delay starting of mayavi engine until necessary
     from mayavi import mlab
     
-    #Because of mayavi requirements, replace dates and company names with integers
-    #until workaround is figured out
+    #Because of current mayavi requirements, replaces dates and company names with integers
     x_length, y_length = prices.shape
     xTime = np.array([list(xrange(x_length)),] * y_length).transpose()
     yCompanies = np.array([list(xrange(y_length)),] * x_length)
