@@ -5,7 +5,7 @@ Generates a three-dimensional interactive surface of market data.
 
 ###Setup
 
-Clone from master, then run:
+Clone the repository, then install it:
 
 `$ python setup.py install`
 
