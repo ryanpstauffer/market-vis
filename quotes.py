@@ -18,7 +18,6 @@ import json
 import urllib  #Need to remove this deprecated dependency
 import urllib2
 
-
 def getIntradayData(ticker, interval_seconds=61, num_days=10):
     # Specify URL string based on function inputs.
     urlString = 'http://www.google.com/finance/getprices?q={0}'.format(ticker.upper())
