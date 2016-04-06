@@ -10,12 +10,10 @@ Market Visualization Prototype
 Quotes Module
 """
 
-#Clean up dependencies!!!!
-
 from datetime import datetime, date
 import pandas as pd
 import json
-import urllib  #Need to remove this deprecated dependency
+import urllib
 import urllib2
 
 def getIntradayData(ticker, interval_seconds=61, num_days=10):
@@ -40,18 +38,18 @@ def getIntradayData(ticker, interval_seconds=61, num_days=10):
     return df[ticker]
 
 def getDailyData(ticker, startDate, endDate=date.today()):
-    ''' Daily quotes from Google. Date format='yyyy-mm-dd' '''
+    ''' Daily quotes from Google Finance API. Date format='yyyy-mm-dd' '''
     ticker = ticker.upper()
     urlString = "http://www.google.com/finance/historical?q={0}".format(ticker)
     urlString += "&startdate={0}&enddate={1}&output=csv".format(
                       startDate.strftime('%b %d, %Y'),endDate.strftime('%b %d, %Y'))
 
     #Convert URL output to dataframe
-    #Need to update to urllib2
     df = pd.read_csv(urllib.urlopen(urlString))
     
     # Convert strings to Datetime format
     df[df.columns[0]] = df[df.columns[0]].apply(lambda x: datetime.strptime(x, '%d-%b-%y'))
+    
     #Index by date    
     df.index = df[df.columns[0]]
     df.drop(df.columns[0], axis=1, inplace=True)
@@ -61,7 +59,6 @@ def getDailyData(ticker, startDate, endDate=date.today()):
 
 def getLastPrice(ticker):
     '''Returns last price and date time of a given ticker (from Google Finance API)'''
-    #NEED TO MAKE THIS RETURN TIME, BUT WORKS FOR NOW...
     # Specify URL string based on function inputs.
     urlString = 'http://www.google.com/finance/info?client=ig&q={0}'.format(ticker.upper())
     
@@ -140,10 +137,11 @@ def createIndexedPricing(stockPrices, startingIndexValue):
 
   
 if __name__ == '__main__':        
-    
+    #For module testing purposes only
     startDate = datetime.strptime('20160101', '%Y%m%d')    
     
     test = getDailyData('AAPL', startDate)
+    print(test)
 #    test.rename(columns={'Close' : 'AAPL'}, inplace = True)
 #    test2 = getDailyData('GOOGL','2016-02-20')
 #    new = pd.concat([test['AAPL'],test2['Close']], axis=1, join='outer')
