@@ -10,7 +10,6 @@ Visualization and Interactive module
 """
 
 import numpy as np
-from mayavi import mlab
 import moviepy.editor as mpy
 
 def visualizePrices(prices):
@@ -18,6 +17,9 @@ def visualizePrices(prices):
     Inputs:
     prices => a pd DataFrame, w/ index: dates; columns: company names
     '''
+    #Imports mlab here to delay starting of mayavi engine until necessary
+    from mayavi import mlab
+    
     #Because of current mayavi requirements, replaces dates and company names with integers
     x_length, y_length = prices.shape
     xTime = np.array([list(xrange(x_length)),] * y_length).transpose()
@@ -49,6 +51,9 @@ def animateGIF(filename, prices):
     Inputs:
     prices => a pd DataFrame, w/ index: dates; columns: company names
     '''
+     #Imports mlab here to delay starting of mayavi engine until necessary
+    from mayavi import mlab
+    
     #Because of mayavi requirements, replace dates and company names with integers
     #until workaround is figured out
     x_length, y_length = prices.shape
