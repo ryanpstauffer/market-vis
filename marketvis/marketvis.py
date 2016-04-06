@@ -13,7 +13,8 @@ Main script
 from datetime import datetime
 from timeit import default_timer as timer
 import pandas as pd
-import argparse
+import os
+#import argparse
 
 from quotes import buildDailyPriceData, buildDummyData, createIndexedPricing
 from visualization import visualizePrices, animateGIF
@@ -26,7 +27,8 @@ def main(mode="test", start="20150101", end="20160101", verbose=True):
     endDate = datetime.strptime(end, "%Y%m%d")
     
     #Get data for S&P500 Constituents
-    SP500Constituents = pd.read_csv("SP500_constituents.csv")
+    constituentLoc = os.path.join(os.path.dirname(__file__),"Resources/SP500_constituents.csv")
+    SP500Constituents = pd.read_csv(constituentLoc)
     
     if mode == "live":
         #Use for online stock price building, pulling from Google Finance API
@@ -57,29 +59,29 @@ def main(mode="test", start="20150101", end="20160101", verbose=True):
     
     print('End')
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Market Visualization Tool")
-    parser.add_argument("mode", metavar="mode", choices=["live", "test"], default="test",
-                        help="Running mode: live (online downloads) | test (offline test data)")
-    parser.add_argument("startDate", nargs='?', type=str, default="20150101",
-                        help="Start date of the live data pull (YYYYMMDD)")
-    parser.add_argument("endDate", nargs='?', type=str, default="20160101",
-                        help="End date of the live data pull (YYYYMMDD)")  
-    parser.add_argument("-v", "--verbose", action="store_true", 
-                        help="Includes time printouts during runtime")
-#    group = parser.add_mutually_exclusive_group()
-#    group.add_argument("-l", "--live", action="store_true",
-#                       help="Runs live and downloads data from Google Finance API")
-#    group.add_argument("-t", "--test", action="store_true",
-#                       help="[Default] Runs in test mode, using existing data from .csv")
-    args = parser.parse_args()
-    main(args.mode, args.startDate, args.endDate, args.verbose)
-#    if args.live:
-#        print(args.live)
-#        print("live", args.startDate, args.endDate)   
-##        main("live", args.startDate, args.endDate)   
-#    else:
-#        print(args.live)
-#        print("test")
-##        main("test")  
+#if __name__ == "__main__":
+#    parser = argparse.ArgumentParser(description="Market Visualization Tool")
+#    parser.add_argument("mode", metavar="mode", choices=["live", "test"], default="test",
+#                        help="Running mode: live (online downloads) | test (offline test data)")
+#    parser.add_argument("startDate", nargs='?', type=str, default="20150101",
+#                        help="Start date of the live data pull (YYYYMMDD)")
+#    parser.add_argument("endDate", nargs='?', type=str, default="20160101",
+#                        help="End date of the live data pull (YYYYMMDD)")  
+#    parser.add_argument("-v", "--verbose", action="store_true", 
+#                        help="Includes time printouts during runtime")
+##    group = parser.add_mutually_exclusive_group()
+##    group.add_argument("-l", "--live", action="store_true",
+##                       help="Runs live and downloads data from Google Finance API")
+##    group.add_argument("-t", "--test", action="store_true",
+##                       help="[Default] Runs in test mode, using existing data from .csv")
+#    args = parser.parse_args()
+#    main(args.mode, args.startDate, args.endDate, args.verbose)
+##    if args.live:
+##        print(args.live)
+##        print("live", args.startDate, args.endDate)   
+###        main("live", args.startDate, args.endDate)   
+##    else:
+##        print(args.live)
+##        print("test")
+###        main("test")  
     

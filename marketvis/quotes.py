@@ -15,6 +15,7 @@ import pandas as pd
 import json
 import urllib
 import urllib2
+import os
 
 def getIntradayData(ticker, interval_seconds=61, num_days=10):
     # Specify URL string based on function inputs.
@@ -105,7 +106,8 @@ def buildDummyData():
 
     #Load dataset from .csv
     print("Pulling Market Data from .csv")
-    df = pd.read_csv('SP500_daily_price_data.csv')
+    dataLoc = os.path.join(os.path.dirname(__file__),"Resources/SP500_daily_price_data.csv")
+    df = pd.read_csv(dataLoc)
     
     #Convert strings to Datetime format
     df[df.columns[0]] = df[df.columns[0]].apply(lambda x: datetime.strptime(x, '%Y-%m-%d'))
