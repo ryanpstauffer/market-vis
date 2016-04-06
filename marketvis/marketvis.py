@@ -14,23 +14,33 @@ from datetime import datetime
 from timeit import default_timer as timer
 import pandas as pd
 import os
-#import argparse
+import argparse
 
 from quotes import buildDailyPriceData, buildDummyData, createIndexedPricing
 from visualization import visualizePrices, animateGIF
 
-def main(mode="test", start="20150101", end="20160101", verbose=True):
+def main():
+    parser = argparse.ArgumentParser(description="Market Visualization Tool")
+    parser.add_argument("mode", metavar="mode", choices=["live", "test"], default="test",
+                        help="Running mode: live (online downloads) | test (offline test data)")
+    parser.add_argument("startDate", nargs='?', type=str, default="20150101",
+                        help="Start date of the live data pull (YYYYMMDD)")
+    parser.add_argument("endDate", nargs='?', type=str, default="20160101",
+                        help="End date of the live data pull (YYYYMMDD)")  
+    parser.add_argument("-v", "--verbose", action="store_true", 
+                        help="Includes time printouts during runtime")
+    args = parser.parse_args()
     programStart = timer()
         
     #Format Dates  
-    startDate = datetime.strptime(start, "%Y%m%d")
-    endDate = datetime.strptime(end, "%Y%m%d")
+    startDate = datetime.strptime(args.startDate, "%Y%m%d")
+    endDate = datetime.strptime(args.endDate, "%Y%m%d")
     
     #Get data for S&P500 Constituents
     constituentLoc = os.path.join(os.path.dirname(__file__),"Resources/SP500_constituents.csv")
     SP500Constituents = pd.read_csv(constituentLoc)
     
-    if mode == "live":
+    if args.mode == "live":
         #Use for online stock price building, pulling from Google Finance API
         print("Pulling Data from Google Finance API")
         SP500StockPrices = buildDailyPriceData(SP500Constituents["Symbol"], startDate, endDate)
@@ -49,7 +59,7 @@ def main(mode="test", start="20150101", end="20160101", verbose=True):
     visualizePrices(SP500IndexedPrices)
     visEnd = timer()
     
-    if verbose:
+    if args.verbose:
         print("Data Pull Time: {0} sec".format(dataPullEnd - programStart))
         print("Calculation Time: {0} sec".format(calcEnd - dataPullEnd))
         print("Visualization Time: {0} sec".format(visEnd - calcEnd))
