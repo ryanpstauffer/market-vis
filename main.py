@@ -11,12 +11,13 @@ Main script
 """
 
 from datetime import datetime
+from timeit import default_timer as timer
 import pandas as pd
 
 from quotes import buildDailyPriceData, buildDummyData, createIndexedPricing
 from visualization import visualizePrices, animateGIF
 
-t0 = datetime.now() #Time the process
+timerStart = timer()
     
 #Select Dates  
 startDate = datetime.strptime('20150101', '%Y%m%d')
@@ -33,10 +34,13 @@ SP500StockPrices = buildDummyData()
 
 SP500IndexedPrices = createIndexedPricing(SP500StockPrices, 100)
 
+timerEnd = timer() #Doesn't include visualization in timer
+print('Calculation time: {0} sec'.format(timerEnd - timerStart))
+
 visualizePrices(SP500IndexedPrices)
 
 #animateGIF('../images/prototype_animation.gif', SP500IndexedPrices)
 
-print('Total time: ', (datetime.now() - t0))
+
 print('End')
     
