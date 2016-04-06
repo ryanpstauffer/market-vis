@@ -38,6 +38,9 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
+#Unused local file
+optimization.py
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
