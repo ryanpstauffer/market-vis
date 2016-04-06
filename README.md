@@ -7,7 +7,7 @@ Generates a three-dimensional interactive surface of market data.
 
 Clone from master, then run:
 
-`python setup.py install`
+`$ python setup.py install`
 
 This installs the marketvis package, and allows you to run the program directly from the command line. 
 
@@ -34,12 +34,12 @@ Runs through a basic command line interface:
       -v, --verbose  Includes time printouts during runtime
 
 ###Test Option
-`marketvis test`
+`$ marketvis test`
 
 Displays a visualization based on test data of S&P 500 stocks from Jan 1, 2012 to Jan 1, 2013.
 
 ###Live Option
-`marketvis live 20150101 20160101`
+`$ marketvis live 20150101 20160101`
 
 Pulls new data from the Google Finance API and creates a more up-to-date visualization.
 
