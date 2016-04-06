@@ -21,7 +21,7 @@ from visualization import visualizePrices, animateGIF
 def main(mode="test", start="20150101", end="20160101", verbose=True):
     programStart = timer()
         
-    #Select Dates  
+    #Format Dates  
     startDate = datetime.strptime(start, "%Y%m%d")
     endDate = datetime.strptime(end, "%Y%m%d")
     
