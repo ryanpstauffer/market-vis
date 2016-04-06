@@ -8,12 +8,14 @@ There are currently two options for running:
 ###Test Option
 `python market-vis.py test`
 
-Which displays a visualization based on test data of S&P 500 stocks from Jan 1, 2012, to Jan 1, 2013.
+Which displays a visualization based on test data of S&P 500 stocks from Jan 1, 2012 to Jan 1, 2013.
 
 ###Live Option
 `python market-vis.py live`
 
 Which pulls new data from the Google Finance API and creates a more up-to-date visualization.
+
+For details about getting the prototype up and running, check out this [tutorial](https://github.com/ryanpstauffer/market-vis/wiki/Tutorial)
 
 
 
