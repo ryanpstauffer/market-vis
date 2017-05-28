@@ -3,12 +3,12 @@ Market Visualization Prototype
 
 Generates a three-dimensional interactive surface of market data.
 
-###Setup
+### Setup
 
 Clone the repository, then install it:
-
-`$ python setup.py install`
-
+```
+$ python setup.py install
+```
 This installs the marketvis package, and allows you to run the program directly from the command line. 
 
 Dependencies:
@@ -19,7 +19,7 @@ Dependencies:
 
 For more details about getting the prototype up and running, check out this [tutorial](https://github.com/ryanpstauffer/market-vis/wiki/Tutorial)
 
-###Interface
+### Interface
 Runs through a basic command line interface:
 
     marketvis [-h] [-v] mode [startDate] [endDate]
@@ -33,14 +33,17 @@ Runs through a basic command line interface:
       -h, --help     show this help message and exit
       -v, --verbose  Includes time printouts during runtime
 
-###Test Option
-`$ marketvis test`
+### Test Option
+```
+$ marketvis test
+```
 
 Displays a visualization based on test data of S&P 500 stocks from Jan 1, 2012 to Jan 1, 2013.
 
-###Live Option
-`$ marketvis live 20150101 20160101`
-
+### Live Option
+```
+$ marketvis live 20150101 20160101
+```
 Pulls new data from the Google Finance API and creates a more up-to-date visualization.
 
 
